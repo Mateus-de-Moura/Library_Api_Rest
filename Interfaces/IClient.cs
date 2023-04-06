@@ -3,14 +3,12 @@ using System.Collections;
 
 namespace Biblioteca_Api.Interfaces
 {
-    public interface IClient
+    public interface IClient 
     {
         Task<IEnumerable> GetCollection();
         List<Livro> GetLivro(int Id);
         List<Livro> getPorCategoria(int Id);
-        List<Livro> GetCarrinho(int Id);
-        public int AddCarrinho(CarinhoCompra carrinho);
-        public void DeleteItenCart(int Id);
-        public void UpdateQuantIten(int Id, int Amount);
+        Task DeleteLivro(int Id);
+        Task UpdateLivroAsync(Livro livro);   
     }
 }

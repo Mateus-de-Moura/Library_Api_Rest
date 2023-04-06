@@ -38,34 +38,18 @@ namespace Biblioteca_Api.Controllers
             return Ok(livros);
         }
 
-        [HttpPost("Cart")]
-        public IActionResult AddCarrinho([FromBody] CarinhoCompra carrinho)
+        [HttpPut]
+        public IActionResult UpdateBook([FromBody] Livro Book)
         {
-            var quantidade = _client.AddCarrinho(carrinho);
-
-            return Ok(quantidade);
-        }
-
-        [HttpGet("GetCart/{Id}")]
-        public IActionResult GetAllItens(int Id)
-        {
-            var quantidade = _client.GetCarrinho(Id);
-            return Ok(quantidade);
-        }
-
-        [HttpDelete("DeleteItemCart/{Id}")]
-        public IActionResult DeleteItemCart(int Id)
-        {
-            _client.DeleteItenCart(Id);
+            _client.UpdateLivroAsync(Book);
             return Ok();
         }
 
-        [HttpPut("UpdateAmount")] 
-        public IActionResult UpdateQuantidade([FromBody] UpdateAmonth update)
+        [HttpDelete("{Id}")]
+        public IActionResult DeleteBook(int Id)
         {
-            _client.UpdateQuantIten(update.Id, update.Quantidade);
+            _client.DeleteLivro(Id);
             return Ok();
         }
-
     }
 }

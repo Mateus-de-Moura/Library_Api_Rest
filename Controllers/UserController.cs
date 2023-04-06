@@ -62,5 +62,20 @@ namespace Biblioteca_Api.Controllers
                 return NotFound();
             }
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteUser(int Id)
+        {
+            var retorno = await _Auth.DeleteUserAsync(Id);
+            if (retorno)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
     }
 }

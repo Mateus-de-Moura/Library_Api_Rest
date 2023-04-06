@@ -4,6 +4,7 @@ using Biblioteca_Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IAuth, UserRepository>();
 builder.Services.AddScoped<IClient, BookRepository>();
+builder.Services.AddScoped<ICart, CartRepository>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 
@@ -43,7 +45,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Library Api", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -68,6 +70,10 @@ builder.Services.AddSwaggerGen(c =>
                         new string[] {}
                     }
                 });
+
+    var xmlFile = "DocumentingSwagger.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 #endregion
 

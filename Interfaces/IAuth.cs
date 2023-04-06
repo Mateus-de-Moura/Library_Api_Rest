@@ -8,5 +8,6 @@ namespace Biblioteca_Api.Interfaces
         Task<(string, UserModel)> RegistreAsync(UserModel user);
         Task<bool> UpdateAsync(UserModel user);
         Task<bool> DeleteUserAsync(int Id);
+        
     }
 }

@@ -40,3 +40,5 @@ C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\obj\Debug\net6.0\refint
 C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\obj\Debug\net6.0\Biblioteca_Api.pdb
 C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\obj\Debug\net6.0\Biblioteca_Api.genruntimeconfig.cache
 C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\obj\Debug\net6.0\ref\Biblioteca_Api.dll
+C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\bin\Debug\net6.0\Biblioteca_Api.xml
+C:\Users\Mateus\Desktop\projetoBiblioteca\Biblioteca_Api\obj\Debug\net6.0\Biblioteca_Api.xml
