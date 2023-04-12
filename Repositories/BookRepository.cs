@@ -5,17 +5,19 @@ using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Formatters.Xml;
 using System.Collections;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Biblioteca_Api.Repositories
 {
     public class BookRepository : IClient
     {
-        private string conn;
+        private IDbConnection _connection;   
         public BookRepository()
         {
-            var conect = new GetConection();
-            conn = conect.conection();
+            var conect = new GetConection();            
+            _connection = new SqlConnection(conect.conection());
         }
 
         public Task DeleteLivro(int Id)
@@ -25,92 +27,17 @@ namespace Biblioteca_Api.Repositories
 
         public async Task<IEnumerable> GetCollection()
         {
-            var query = "SELECT * FROM LIVROS";
-
-            using (var con = new SqlConnection(conn))
-            {
-                con.Open();
-
-                try
-                {
-                    var Livros = await con.QueryAsync(query);
-
-                    if (Livros != null)
-                    {
-                        return Livros;
-                    }
-                    else
-                    {
-                        return new List<LivrosModel>();
-                    }
-                }
-                catch (Exception)
-                {
-
-                    return new List<LivrosModel>();
-                }
-            }
+            return await _connection.QueryAsync("SELECT * FROM LIVROS");
         }
 
         public List<Livro> GetLivro(int Id)
         {
-            var parameters = new { Id = Id };
-
-            string query = "SELECT * FROM LIVROS WHERE Id = @Id";
-
-            using (var con = new SqlConnection(conn))
-            {
-                con.Open();
-
-                try
-                {
-                    var Livro = con.Query<Livro>(query, parameters).ToList();
-
-                    if (Livro != null)
-                    {
-                        return Livro;
-                    }
-                    else
-                    {
-                        return new List<Livro>();
-                    }
-                }
-                catch (Exception)
-                {
-                    return new List<Livro>();
-                }
-            }
+            return _connection.Query<Livro>("SELECT * FROM LIVROS WHERE Id = @Id", new { Id = Id }).ToList();
         }
 
         public List<Livro> getPorCategoria(int Id)
         {
-            var parameters = new { Id = Id };
-
-            string query = "SELECT * FROM LIVROS WHERE CATEGORIA = (SELECT CATEGORIA FROM LIVROS WHERE ID = @Id) AND Id <> @Id";
-
-            using (var con = new SqlConnection(conn))
-            {
-                con.Open();
-
-                try
-                {
-                    var Livro = con.Query<Livro>(query, parameters).ToList();
-
-                    if (Livro != null)
-                    {
-                        return Livro;
-                    }
-                    else
-                    {
-                        return new List<Livro>();
-                    }
-                }
-                catch (Exception)
-                {
-
-                    return new List<Livro>();
-                }
-            }
+            return _connection.Query<Livro>("SELECT * FROM LIVROS WHERE CATEGORIA = (SELECT CATEGORIA FROM LIVROS WHERE ID = @Id) AND Id <> @Id", new { Id = Id }).ToList();
         }
 
         public Task UpdateLivroAsync(Livro livro)

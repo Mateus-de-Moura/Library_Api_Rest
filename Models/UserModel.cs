@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace Biblioteca_Api.Models
 {
@@ -11,5 +12,6 @@ namespace Biblioteca_Api.Models
         public string Senha { get; set; }
         public PerfilUsuario Perfil { get; set; }
         public int Ativo { get; set; }
+        public string Base64Photo { get; set; }
     }
 }

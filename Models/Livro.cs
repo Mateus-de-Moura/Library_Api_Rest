@@ -9,7 +9,7 @@
         public string? UrlImagem { get; set; }
         public decimal? Valor { get; set; }
         public string? Categoria { get; set; }
-        public int Quantidade { get; set; }
+        public int Quantidade { get; set; }      
 
     }
 }
